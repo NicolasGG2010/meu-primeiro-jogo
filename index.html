@@ -156,6 +156,35 @@ velocidade;
                  ctx.fillRect(0, 255, 800,
      45);
 
-                 
+                 ctx.strokeStyle = "#36e8ff";
+                 ctx.beinPath();
+                 ctx.moveTo(0, 255);
+                 ctx.lineTo(800, 255);
+                 ctx.stroke();
+
+                 if (jogando) {
+                     cubo.velocidadeY += 0.6;
+                     cubo.y +=
+     cubo.velocidadeY;
+
+                     if (cubo.y + cubo.tamanho
+     >= 255) {
+                         cubo.y = 255 -
+     cubo.tamanho;
+                         cubo.velocidadeY = 0;
+                         cubo.noChao = true;
+                     }
+
+                     for (const espinho of
+     espinhos) {
+                         espinho.x -=
+     velocidade;
+                         if (espinhos.x +
+     espinho.tamanho < 0) {
+                             espinho.x = 800 +
+     Math.random() * 200;
+                             pontos++;
+                             velocidade +=
+     0.15;
    </script>
 </body>
