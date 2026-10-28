@@ -1,0 +1,161 @@
+HTML
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UFT-8">
+    <meta name="viewport"
+content="width=device-width,
+initial-scale=1.0">
+    <title>Meu Primeiro Jogo</title>
+
+    <style>
+        * {
+           box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #080d20;
+            color: white;
+            font-family: Arial,
+sans-serif;
+            text-aling: center;
+        }
+
+        h1 {
+            color: #36e8ff;
+            text-shadow: 0 0 15px
+#87cff;
+        }
+        #jogo {
+           display: block;
+           width: 95%;
+           max-width: 800px;
+           margin: 20px auto;
+           border: 2px solid #36e8ff;
+           border-radius: 12px;
+           background: #101a39;
+        }
+
+        button {
+            padding: 13px 24px;
+            margin: 5px;
+            border-radius: 9px;
+            background: #36e8ff;
+            color: #081126;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        p {
+           padding: 0 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>MEU PRIMEIRO JOGO</h1>
+    <p> Desvie dos espinhos e tente chegar
+mais longe!</p>
+
+    <canvas id="jogo" width="800"
+height="300"></canvas>
+
+    <p id="informacao">Clique em Jogar
+para começar.</p>
+    <button id="botao"
+onclick="iniciar()">Jogar</button>
+    <button onclick="pular()">Pular</
+button>
+
+   <script>
+       const tela =
+document.getElementById("Jogo);
+        const ctx =
+tela.getContent("2d");
+        const informacao =
+document.getElementById("informacao");
+        const botao =
+document.getElementById("botao");
+
+        let cubo, espinhos, pontos,
+velocidade;
+        let jogando = false;
+        let terminou = false;
+        let frame;
+        let pressionado = false;
+
+        function iniciar() {
+            cancelAnimationFrame(frame);
+
+            cubo = {
+                x: 100,
+                y: 220,
+                tamanho: 30,
+                velocidadeY: 0,
+                noChao: true
+            };
+
+            espinhos = [
+              { x: 500, tamanho: 32 },
+              { x: 750, tamanho: 32 }
+            ];
+
+            pontos = 0;
+            velocidade = 5;
+            jodando = true;
+            terminou = false;
+
+            botao.textContent =
+      "Recomeçar";
+                  informacao.textContent =
+      "Pontos: 0";
+                  desenhar();
+        }
+
+        function pular() {
+             if (jogando && cubo.noChao) {
+                cubo.velocidadeY = -12;
+                cubo.noChao = false;
+             }
+        }
+
+
+    document.addEventListener("keydown",
+    function(evento) {
+                if (evento.code === "Space"
+    // evento.code === "ArrowUp") {
+                    evento.preventDefault();
+
+                    if (!pressionado) {
+                       pular ();
+                       pressionado = true;
+                    }
+    }
+                              });
+    document.addEventListener("keyup",
+    function(evento) {
+                if (evento.code === "Space"
+    // evento.code === "ArrowUp") {
+                    pressionado = false;
+    }
+                              });
+
+     tela.addEventListerner("pointerdown",
+     pular);
+
+             function desenhar() {
+                 ctx.clearRect(0, 0, 800,
+     300);
+
+                 // Chão
+                 ctx.fillStyle = "#26365c";
+                 ctx.fillRect(0, 255, 800,
+     45);
+
+                 
+   </script>
+</body>
