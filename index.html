@@ -186,5 +186,86 @@ velocidade;
                              pontos++;
                              velocidade +=
      0.15;
+                         }
+                         // Colisão com o
+     espinho
+                         const bateu =
+                             cubo.x +
+     cubo.tamanho > espinho.x &&
+                             cubo.x <
+     espinho.x + espinho.tamanho &&
+                             cubo.y +
+     cubo.tamanho > 255 - espinho.tamanho &&
+                             cubo.y +
+     cubo.tamanho <= 255;
+
+                         if (bateu) {
+                             jogando = false;
+                             terminou = true;
+                             botao.textContent
+     = "Jogar novamente";
+
+     informacao.textContent =
+                                 "Fim de jogo!
+     Pontuação: " + pontos;
+                         }
+                     }
+                 }
+
+                 // Desenhar o cubo
+                 ctx.fillStyle = "#36e8ff";
+                 ctx.shadowColor = "#36e8ff";
+                 ctx.shadowBlur = 15;
+                 ctx.fillRect(cubo.x, cubo.y,
+      cubo.tamanho, cubo.tamanho);
+                  ctx.shadowBlur = 0;
+                  // Desenhar os espinhos
+                  ctx.fillStyle = "#ff3978";
+                  for (const espinho of
+      espinhos) {
+                      ctx.beginPath();
+                      ctx.moveTo(espinho.x,
+      255);
+                      ctx.lineTo(
+                          espinho.x +
+      espinho.tamanho / 2,
+                          255 - espinho.tamanho
+                      );
+                      ctx.lineTo(espinho.x +
+      espinho.tamanho, 255);
+                      ctx.closePath();
+                      ctx.fill();
+                  }
+
+                  if (jogando) {
+                      informacao.textContent =
+      "Pontos: " + pontos;
+                      frame =
+      requestAnimationFrame(desenhar);
+                  } else if (terminou) {
+                      ctx.fillStyle = "white";
+                      ctx.font = "bold 28px
+      Arial";
+                      ctx.fillText("FIM DE
+      JOGO!", 290, 120);
+                  }
+             }
+
+             // Tela inicial
+             cubo = { x: 100, y: 255, tamanho:
+      30};
+             espinhos = [{ x: 500, tamanho:
+      32}];
+             ctx.fillStyle = "#26365c";
+             ctx.fillRect(0, 255, 800, 45);
+             ctx.fillStyle = "#36e8ff";
+             ctx.fillRect(100, 255, 30, 30);
+             ctx.fillStyle = "#ff3978";
+             ctx.beginPath();
+             ctx.moveTo(500, 255);
+             ctx.lineTo(516, 223);
+             ctx.lineTo(532, 255);
+             ctx.fill();
    </script>
 </body>
+</html>
